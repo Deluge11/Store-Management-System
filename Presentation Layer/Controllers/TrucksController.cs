@@ -20,32 +20,38 @@ namespace Presentation_Layer.Controllers
         [HttpPost]
         public async Task<IActionResult> GenerageTruckConnectionString()
         {
-            return Ok(await TruckBusiness.GenerateTruckConnectionString());
+            string result = await TruckBusiness.GenerateTruckConnectionString();
+            return result != null ?
+                Ok(result) : BadRequest();
         }
 
         [HttpPatch("{truckConnectionString}")]
         public async Task<IActionResult> ConnectToTruck(string truckConnectionString)
         {
-            return Ok(await TruckBusiness.ConnectTruck(truckConnectionString));
+            return await TruckBusiness.ConnectTruck(truckConnectionString) ?
+                Ok() : BadRequest();
         }
 
         [HttpPatch("loading/{truckId}")]
         public async Task<IActionResult> LoadingTruck(int truckId, [FromQuery] int batchLocationId)
         {
-            return Ok(await TruckBusiness.LoadingTruck(truckId, batchLocationId));
+            return await TruckBusiness.LoadingTruck(truckId, batchLocationId) ?
+                Ok() : BadRequest();
         }
 
         [HttpPatch("unloading/{truckId}")]
         public async Task<IActionResult> UnLoadingTruck(int truckId, [FromQuery] int batchLocationId)
         {
-            return Ok(await TruckBusiness.UnLoadingTruck(truckId,batchLocationId));
+            return await TruckBusiness.UnLoadingTruck(truckId, batchLocationId) ?
+                Ok() : BadRequest();
 
         }
 
         [HttpPatch("disconnect/{truckId}")]
         public async Task<IActionResult> TruckDisconnect(int truckId)
         {
-            return Ok(await TruckBusiness.TruckDisconnect(truckId));
+            return await TruckBusiness.TruckDisconnect(truckId) ?
+                Ok() : BadRequest();
 
         }
 
