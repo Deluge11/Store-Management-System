@@ -2,9 +2,12 @@
 using Business_Layer.Interfaces;
 using DTOs;
 using Microsoft.AspNetCore.Authorization;
+using Enums;
+using Presentation_Layer.Authorization;
 
 namespace Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class StocksController : ControllerBase
@@ -17,6 +20,8 @@ namespace Controllers
             StocksBusiness = stocksBusiness;
         }
 
+
+        [CheckPermission(Permission.Stocks_Create)]
         [HttpPost("add-stock")]
         public async Task<IActionResult> Add(AddNewStock stock)
         {
@@ -24,6 +29,8 @@ namespace Controllers
               Ok() : BadRequest();
         }
 
+
+        [CheckPermission(Permission.Stocks_Add_Quantity)]
         [HttpPost("add-quantity")]
         public async Task<IActionResult> AddStockQuantity(InsertProduct stock)
         {
@@ -31,6 +38,8 @@ namespace Controllers
               Ok() : BadRequest();
         }
 
+
+        [CheckPermission(Permission.Stocks_Accept_Add_Quantity)]
         [HttpPost("{requestId}")]
         public async Task<IActionResult> AcceptAddStockReqeuest(int requestId)
         {

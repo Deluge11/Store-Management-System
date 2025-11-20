@@ -9,6 +9,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Options;
 using Microsoft.Extensions.DependencyInjection;
+using Presentation_Layer.Authentication;
+using Presentation_Layer.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,16 +41,25 @@ builder.Services.AddAuthentication()
     });
 
 
+
+builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddScoped<IOrdersBusiness, OrdersBusiness>();
 builder.Services.AddScoped<IStocksBusiness, StocksBusiness>();
 builder.Services.AddScoped<ITruckBusiness, TruckBusiness>();
 builder.Services.AddScoped<IInventoryBusiness, InventoryBusiness>();
+builder.Services.AddScoped<IAccountsBusiness, AccountsBusiness>();
+builder.Services.AddScoped<IAuthorizeBusiness, AuthorizeBusiness>();
 
 builder.Services.AddScoped<IOrdersData, OrdersData>();
 builder.Services.AddScoped<IStocksData, StocksData>();
 builder.Services.AddScoped<ITruckData, TruckData>();
 builder.Services.AddScoped<IInventoryData, InventoryData>();
+builder.Services.AddScoped<IAccountsData, AccountsData>();
+builder.Services.AddScoped<IAuthorizeData, AuthorizeData>();
 
+builder.Services.AddScoped<AuthenticateHelper>();
+builder.Services.AddScoped<AuthorizeHelper>();
 
 
 

@@ -11,12 +11,12 @@ using Bussiness_Layer.Interfaces;
 
 namespace Presentation_Layer.Authentication;
 
-public class AuthenticateEcommerce
+public class AuthenticateHelper
 {
     public JwtOptions JwtOptions { get; }
     public IAuthorizeBusiness AuthorizeBusiness { get; }
 
-    public AuthenticateEcommerce(JwtOptions jwtOptions, IAuthorizeBusiness authorizeBusiness)
+    public AuthenticateHelper(JwtOptions jwtOptions, IAuthorizeBusiness authorizeBusiness)
     {
         JwtOptions = jwtOptions;
         AuthorizeBusiness = authorizeBusiness;
@@ -25,6 +25,11 @@ public class AuthenticateEcommerce
 
     public async Task<string> CreateToken(int accountId)
     {
+        if(accountId < 1)
+        {
+            return string.Empty;
+        }
+
         var claims = new List<Claim>
         {
             new Claim(ClaimTypes.NameIdentifier, accountId.ToString())
@@ -51,6 +56,14 @@ public class AuthenticateEcommerce
     }
 
 
+    public async Task<string> IsValidAuthenticate(AccountLoginInfo request)
+    {
+        if (request.password.Length < 8)
+        {
+            return "Password should have 8 letters atleast";
+        }
 
+        return string.Empty;
+    }
 
 }

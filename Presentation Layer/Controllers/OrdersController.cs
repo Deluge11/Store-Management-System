@@ -2,10 +2,14 @@
 using Business_Layer.Interfaces;
 using DTOs;
 using Microsoft.AspNetCore.Authorization;
+using Enums;
+using Presentation_Layer.Authorization;
 
 namespace Controllers
 {
+    [Authorize]
     [ApiController]
+    [CheckPermission(Permission.Orders_Manage)]
     [Route("[controller]")]
     public class OrdersController : ControllerBase
     {
@@ -16,7 +20,7 @@ namespace Controllers
             OrdersBusiness = ordersBusiness;
         }
 
-
+        
         [HttpPost("{orderId}")]
         public async Task<IActionResult> CreateNewOrder(int orderId , List<OrderRequest> items)
         {
@@ -24,6 +28,7 @@ namespace Controllers
                 Ok() : BadRequest("Create New Order Failed");
         }
 
+        
         [HttpPost("confrim/{orderId}")]
         public async Task<IActionResult> ConfirmOrder(int orderId)
         {
@@ -31,6 +36,7 @@ namespace Controllers
                 Ok() : BadRequest("Something went wrong");
         }
 
+        
         [HttpPatch]
         public async Task<IActionResult> SyncOrderItemsCount(List<OrderRequest> items)
         {

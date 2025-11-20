@@ -7,10 +7,12 @@ namespace Business_Layer.Business;
 public class StocksBusiness : IStocksBusiness
 {
     public IStocksData StocksData { get; }
+    public IAccountsBusiness AccountsBusiness { get; }
 
-    public StocksBusiness(IStocksData stocksData)
+    public StocksBusiness(IStocksData stocksData, IAccountsBusiness accountsBusiness)
     {
         StocksData = stocksData;
+        AccountsBusiness = accountsBusiness;
     }
 
     public async Task<bool> Add(AddNewStock stock)
@@ -25,7 +27,7 @@ public class StocksBusiness : IStocksBusiness
 
     public async Task<bool> AcceptAddStockReqeuest(int requestId)
     {
-        int staffId = 5;
+        int staffId = AccountsBusiness.GetAccountId();
         return await StocksData.AcceptAddStockReqeuest(requestId,staffId);
     }
 }

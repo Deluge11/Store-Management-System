@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace DTOs
 {
-    public class AccountLoginInfo
+   public class Account
     {
+        public int id { get; set; }
         [EmailAddress]
         public string email { get; set; }
         public string password { get; set; }

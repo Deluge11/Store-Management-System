@@ -1,10 +1,14 @@
 ﻿using Bussiness_Layer.Interfaces;
-using Data_Layer.Data;
+using Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Presentation_Layer.Authorization;
 
 namespace Presentation_Layer.Controllers
 {
+    [Authorize]
     [ApiController]
+    [CheckPermission(Permission.Inventory_Check)]
     [Route("[controller]")]
     public class InventoryController : ControllerBase
     {
@@ -16,13 +20,15 @@ namespace Presentation_Layer.Controllers
         }
 
 
-
+        
         [HttpPost("start-session")]
         public async Task<IActionResult> StartInventroySession()
         {
             return await InventoryBusiness.OpenInventorySession() ?
                  Ok() : BadRequest();
         }
+
+
 
         [HttpPatch("close-session")]
         public async Task<IActionResult> CloseInventroySession()
@@ -32,6 +38,8 @@ namespace Presentation_Layer.Controllers
 
         }
 
+
+
         [HttpGet("first-stage-list")]
         public async Task<IActionResult> GetInventoryFirstStageList()
         {
@@ -39,6 +47,8 @@ namespace Presentation_Layer.Controllers
             return result != null ?
                 Ok(result) : NotFound();
         }
+
+
 
         [HttpGet("second-stage-list")]
         public async Task<IActionResult> GetInventorySecondStageList()
@@ -48,6 +58,8 @@ namespace Presentation_Layer.Controllers
                 Ok(result) : NotFound();
         }
 
+
+
         [HttpGet("difference-reasons/{batchCheckId}")]
         public async Task<IActionResult> GetDifferenceReasons(int batchCheckId)
         {
@@ -56,12 +68,16 @@ namespace Presentation_Layer.Controllers
                 Ok(result) : NotFound();
         }
 
+
+
         [HttpPost("add-batch-to-inventory/{batchNumber}")]
         public async Task<IActionResult> AddBatchToCheckInventory(string batchNumber)
         {
             return await InventoryBusiness.AddBatchToCheckInventory(batchNumber) ?
                  Ok() : BadRequest();
         }
+
+
 
         [HttpPatch("count-batch-quantity/{batchCheckId}")]
         public async Task<IActionResult> UpdateInventoryCountedQuantity(int batchCheckId, [FromQuery] int countedQuantity)
@@ -70,12 +86,16 @@ namespace Presentation_Layer.Controllers
                  Ok() : BadRequest();
         }
 
+
+
         [HttpPatch("diff-reason-stage")]
         public async Task<IActionResult> DifferenceReasonStage()
         {
             return await InventoryBusiness.DifferenceReasonStage() ?
                  Ok() : BadRequest();
         }
+
+
 
         [HttpPost("add-diff-reason/{batchCheckId}")]
         public async Task<IActionResult> AddInventoryDifferenceReason(int batchCheckId, [FromQuery] int quantity, [FromQuery] int reasonId)
