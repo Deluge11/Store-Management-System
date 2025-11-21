@@ -9,9 +9,6 @@ namespace Enums;
 public enum Permission
 {
     Inventory_Check = 1,
-    Orders_Manage,
-    Stocks_Create,
-    Stocks_Add_Quantity,
     Stocks_Accept_Add_Quantity,
     Trucks_Create_Connection_String,
     Trucks_Manage_Connection,

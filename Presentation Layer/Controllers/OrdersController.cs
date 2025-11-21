@@ -7,9 +7,8 @@ using Presentation_Layer.Authorization;
 
 namespace Controllers
 {
-    [Authorize]
     [ApiController]
-    [CheckPermission(Permission.Orders_Manage)]
+    [Authorize(AuthenticationSchemes = "Ecommerce")]
     [Route("[controller]")]
     public class OrdersController : ControllerBase
     {

@@ -16,12 +16,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 var connectingString = builder.Configuration.GetConnectionString("Default");
 var jwtOptions = builder.Configuration.GetSection("JwtOptions").Get<JwtOptions>();
+var ecommerceOptions = builder.Configuration.GetSection("Ecommerce_Inventory_Shared_Key").Get<EcommerceOptions>();
 
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 builder.Services.AddSingleton<string>(connectingString);
 builder.Services.AddSingleton<JwtOptions>(jwtOptions);
+builder.Services.AddSingleton<EcommerceOptions>(ecommerceOptions);
 
 
 
@@ -38,9 +40,44 @@ builder.Services.AddAuthentication()
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SigningKey))
         };
+    })
+    .AddJwtBearer("Ecommerce", options =>
+    {
+        //options.Events = new JwtBearerEvents
+        //{
+        //    OnAuthenticationFailed = context =>
+        //    {
+        //        Console.WriteLine("Authentication failed:");
+        //        Console.WriteLine(context.Exception.Message);
+        //        return Task.CompletedTask;
+        //    },
+        //    OnTokenValidated = context =>
+        //    {
+        //        Console.WriteLine("Token validated successfully!");
+        //        return Task.CompletedTask;
+        //    },
+        //    OnMessageReceived = context =>
+        //    {
+        //        Console.WriteLine($"Token received: {context.Token}");
+        //        return Task.CompletedTask;
+        //    }
+        //};
+        options.SaveToken = true;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = ecommerceOptions.Issuer,
+            ValidateAudience = true,
+            ValidAudience = ecommerceOptions.Audience,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(ecommerceOptions.Key))
+        };
     });
 
 
+
+
+   
 
 builder.Services.AddHttpContextAccessor();
 

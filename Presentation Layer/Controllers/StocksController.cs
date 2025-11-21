@@ -7,7 +7,6 @@ using Presentation_Layer.Authorization;
 
 namespace Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class StocksController : ControllerBase
@@ -21,7 +20,7 @@ namespace Controllers
         }
 
 
-        [CheckPermission(Permission.Stocks_Create)]
+        [Authorize(AuthenticationSchemes = "Ecommerce")]
         [HttpPost("add-stock")]
         public async Task<IActionResult> Add(AddNewStock stock)
         {
@@ -30,7 +29,7 @@ namespace Controllers
         }
 
 
-        [CheckPermission(Permission.Stocks_Add_Quantity)]
+        [Authorize(AuthenticationSchemes = "Ecommerce")]
         [HttpPost("add-quantity")]
         public async Task<IActionResult> AddStockQuantity(InsertProduct stock)
         {
@@ -39,6 +38,7 @@ namespace Controllers
         }
 
 
+        [Authorize]
         [CheckPermission(Permission.Stocks_Accept_Add_Quantity)]
         [HttpPost("{requestId}")]
         public async Task<IActionResult> AcceptAddStockReqeuest(int requestId)
