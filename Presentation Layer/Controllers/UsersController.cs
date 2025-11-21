@@ -9,12 +9,12 @@ namespace Presentation_Layer.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class AccountController : ControllerBase
+public class UsersController : ControllerBase
 {
     public IAccountsBusiness AccountsBusiness { get; }
     public AuthenticateHelper AuthenticateHelper { get; }
 
-    public AccountController(IAccountsBusiness accountsBusiness, AuthenticateHelper authenticateHelper)
+    public UsersController(IAccountsBusiness accountsBusiness, AuthenticateHelper authenticateHelper)
     {
         AccountsBusiness = accountsBusiness;
         AuthenticateHelper = authenticateHelper;

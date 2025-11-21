@@ -58,7 +58,7 @@ public class AccountsBusiness : IAccountsBusiness
         var passwordHasher = new PasswordHasher<object>();
         string hashedPassword = passwordHasher.HashPassword(null, password);
 
-        return await AccountsData.InsertUser(name, email, password);
+        return await AccountsData.InsertUser(name, email, hashedPassword);
     }
 
 

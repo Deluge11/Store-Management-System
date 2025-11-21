@@ -26,10 +26,14 @@ builder.Services.AddSingleton<JwtOptions>(jwtOptions);
 builder.Services.AddSingleton<EcommerceOptions>(ecommerceOptions);
 
 
-
-builder.Services.AddAuthentication()
+builder.Services.AddAuthentication(
+    options =>{
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
     .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
     {
+
         options.SaveToken = true;
         options.TokenValidationParameters = new TokenValidationParameters
         {
@@ -77,7 +81,7 @@ builder.Services.AddAuthentication()
 
 
 
-   
+
 
 builder.Services.AddHttpContextAccessor();
 
