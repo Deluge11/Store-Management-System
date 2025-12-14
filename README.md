@@ -27,7 +27,7 @@ Presentation Layer
 
 Business Layer
 
-Data Layer
+Data Access Layer
 
 🔐 Authentication System
 
@@ -87,6 +87,6 @@ JWT Authentication
 
 Dependency Injection
 
-Clean Architecture Pattern
+N-Tier Pattern
 
 RESTful API Design
