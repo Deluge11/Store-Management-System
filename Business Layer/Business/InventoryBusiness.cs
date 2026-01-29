@@ -1,22 +1,15 @@
-﻿using Business_Layer.Interfaces;
-using Bussiness_Layer.Interfaces;
-using Data_Layer.Interfaces;
+﻿using Business_Layer.Business;
+using Data_Layer.Data;
 using DTOs;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bussiness_Layer.Business
 {
-    public class InventoryBusiness : IInventoryBusiness
+    public class InventoryBusiness 
     {
-        public IInventoryData InventoryData { get; }
-        public IAccountsBusiness AccountsBusiness { get; }
+        public InventoryData InventoryData { get; }
+        public AccountsBusiness AccountsBusiness { get; }
 
-        public InventoryBusiness(IInventoryData inventoryData, IAccountsBusiness accountsBusiness)
+        public InventoryBusiness(InventoryData inventoryData, AccountsBusiness accountsBusiness)
         {
             InventoryData = inventoryData;
             AccountsBusiness = accountsBusiness;

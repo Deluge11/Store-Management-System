@@ -1,9 +1,11 @@
-﻿using Business_Layer.Interfaces;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Presentation_Layer.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using DTOs;
 using Microsoft.Identity.Client;
+using Presentation_Layer.Authorization;
+using Enums;
+using Business_Layer.Business;
 
 namespace Presentation_Layer.Controllers;
 
@@ -11,10 +13,10 @@ namespace Presentation_Layer.Controllers;
 [Route("[controller]")]
 public class UsersController : ControllerBase
 {
-    public IAccountsBusiness AccountsBusiness { get; }
+    public AccountsBusiness AccountsBusiness { get; }
     public AuthenticateHelper AuthenticateHelper { get; }
 
-    public UsersController(IAccountsBusiness accountsBusiness, AuthenticateHelper authenticateHelper)
+    public UsersController(AccountsBusiness accountsBusiness, AuthenticateHelper authenticateHelper)
     {
         AccountsBusiness = accountsBusiness;
         AuthenticateHelper = authenticateHelper;
@@ -37,6 +39,7 @@ public class UsersController : ControllerBase
 
 
     [AllowAnonymous]
+    [CheckPermission(Permission.Users_Manage_Accounts)]
     [HttpPost("register/{username}")]
     public async Task<IActionResult> SignInUser(string username, AccountLoginInfo request)
     {
@@ -52,7 +55,7 @@ public class UsersController : ControllerBase
         string token = await AuthenticateHelper.CreateToken(accountId);
 
         return !string.IsNullOrEmpty(token) ?
-            Ok(token) : BadRequest();
+            Ok() : BadRequest();
     }
 
 

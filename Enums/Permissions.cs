@@ -13,4 +13,5 @@ public enum Permission
     Trucks_Create_Connection_String,
     Trucks_Manage_Connection,
     Trucks_Manage_Stocks,
+    Users_Manage_Accounts
 }

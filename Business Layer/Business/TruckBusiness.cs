@@ -1,22 +1,15 @@
 ﻿using Business_Layer.Business;
-using Business_Layer.Interfaces;
-using Bussiness_Layer.Interfaces;
-using Data_Layer.Interfaces;
+using Data_Layer.Data;
 using DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bussiness_Layer.Business
 {
-    public class TruckBusiness : ITruckBusiness
+    public class TruckBusiness
     {
-        public ITruckData TruckData { get; }
-        public IAccountsBusiness AccountsBusiness { get; }
+        public TruckData TruckData { get; }
+        public AccountsBusiness AccountsBusiness { get; }
 
-        public TruckBusiness(ITruckData truckData, IAccountsBusiness accountsBusiness)
+        public TruckBusiness(TruckData truckData, AccountsBusiness accountsBusiness)
         {
             TruckData = truckData;
             AccountsBusiness = accountsBusiness;

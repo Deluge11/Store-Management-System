@@ -1,4 +1,4 @@
-﻿using Bussiness_Layer.Interfaces;
+﻿using Bussiness_Layer.Business;
 using Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,9 +13,9 @@ namespace Presentation_Layer.Controllers
     public class TrucksController : ControllerBase
     {
 
-        public ITruckBusiness TruckBusiness { get; }
+        public TruckBusiness TruckBusiness { get; }
 
-        public TrucksController(ITruckBusiness truckBusiness)
+        public TrucksController(TruckBusiness truckBusiness)
         {
             TruckBusiness = truckBusiness;
         }

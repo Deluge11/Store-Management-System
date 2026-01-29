@@ -1,5 +1,4 @@
 ﻿
-using Data_Layer.Interfaces;
 using Microsoft.Data.SqlClient;
 using System.Data;
 using DTOs;
@@ -7,7 +6,7 @@ using Azure.Core;
 
 namespace Data_Layer.Data;
 
-public class StocksData : IStocksData
+public class StocksData 
 {
 
     public string ConnectionString { get; }

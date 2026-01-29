@@ -1,4 +1,4 @@
-﻿using Bussiness_Layer.Interfaces;
+﻿using Bussiness_Layer.Business;
 using Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,9 +12,9 @@ namespace Presentation_Layer.Controllers
     [Route("[controller]")]
     public class InventoryController : ControllerBase
     {
-        public IInventoryBusiness InventoryBusiness { get; }
+        public InventoryBusiness InventoryBusiness { get; }
 
-        public InventoryController(IInventoryBusiness inventoryBusiness)
+        public InventoryController(InventoryBusiness inventoryBusiness)
         {
             InventoryBusiness = inventoryBusiness;
         }

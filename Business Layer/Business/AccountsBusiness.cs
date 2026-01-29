@@ -1,25 +1,24 @@
 ﻿
 
-using Data_Layer.Interfaces;
-using Business_Layer.Interfaces;
 using Options;
 using System.Security.Claims;
 using DTOs;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
 using Business_Layer.Sanitizations;
+using Data_Layer.Data;
 
 
 namespace Business_Layer.Business;
 
-public class AccountsBusiness : IAccountsBusiness
+public class AccountsBusiness 
 {
     private IHttpContextAccessor _httpContextAccessor { get; }
-    public IAccountsData AccountsData { get; }
+    public AccountsData AccountsData { get; }
 
     private HttpContext HttpContext => _httpContextAccessor.HttpContext;
 
-    public AccountsBusiness(IHttpContextAccessor httpContext, IAccountsData accountsData)
+    public AccountsBusiness(IHttpContextAccessor httpContext, AccountsData accountsData)
     {
         _httpContextAccessor = httpContext;
         AccountsData = accountsData;
@@ -28,8 +27,15 @@ public class AccountsBusiness : IAccountsBusiness
 
     public int GetAccountId()
     {
-        var claimIdentity = HttpContext.User.Identity as ClaimsIdentity;
-        return int.Parse(claimIdentity.FindFirst(ClaimTypes.NameIdentifier).Value);
+        try
+        {
+            var claimIdentity = HttpContext.User.Identity as ClaimsIdentity;
+            return int.Parse(claimIdentity.FindFirst(ClaimTypes.NameIdentifier).Value);
+        }
+        catch (Exception)
+        {
+            return 0;
+        }
     }
 
 

@@ -1,22 +1,19 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Microsoft.AspNetCore.Identity.Data;
 using Options;
 using DTOs;
 using Business_Layer.Business;
-using Bussiness_Layer.Interfaces;
 
 namespace Presentation_Layer.Authentication;
 
 public class AuthenticateHelper
 {
     public JwtOptions JwtOptions { get; }
-    public IAuthorizeBusiness AuthorizeBusiness { get; }
+    public AuthorizeBusiness AuthorizeBusiness { get; }
 
-    public AuthenticateHelper(JwtOptions jwtOptions, IAuthorizeBusiness authorizeBusiness)
+    public AuthenticateHelper(JwtOptions jwtOptions, AuthorizeBusiness authorizeBusiness)
     {
         JwtOptions = jwtOptions;
         AuthorizeBusiness = authorizeBusiness;

@@ -1,5 +1,4 @@
-﻿using Data_Layer.Interfaces;
-using DTOs;
+﻿using DTOs;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -10,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Data_Layer.Data
 {
-    public class InventoryData : IInventoryData
+    public class InventoryData 
     {
         public string ConnectionString { get; }
         public InventoryData(string connectionString)

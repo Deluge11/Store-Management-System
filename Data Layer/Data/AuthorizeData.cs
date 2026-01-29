@@ -1,9 +1,8 @@
 ﻿using Microsoft.Data.SqlClient;
 using System.Data;
-using Data_Layer.Interfaces;
 namespace Data_Layer.Data;
 
-public class AuthorizeData : IAuthorizeData
+public class AuthorizeData 
 {
     public string ConnectionString { get; }
 

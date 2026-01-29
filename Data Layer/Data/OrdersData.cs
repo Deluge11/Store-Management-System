@@ -1,12 +1,11 @@
 ﻿
-using Data_Layer.Interfaces;
 using DTOs;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
 namespace Data_Layer.Data;
 
-public class OrdersData : IOrdersData
+public class OrdersData 
 {
     public string ConnectionString { get; }
 

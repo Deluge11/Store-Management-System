@@ -1,33 +1,32 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Business_Layer.Interfaces;
 using DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Enums;
 using Presentation_Layer.Authorization;
+using Business_Layer.Business;
 
 namespace Controllers
 {
     [ApiController]
-    [Authorize(AuthenticationSchemes = "Ecommerce")]
     [Route("[controller]")]
     public class OrdersController : ControllerBase
     {
-        public IOrdersBusiness OrdersBusiness { get; }
+        public OrdersBusiness OrdersBusiness { get; }
 
-        public OrdersController(IOrdersBusiness ordersBusiness)
+        public OrdersController(OrdersBusiness ordersBusiness)
         {
             OrdersBusiness = ordersBusiness;
         }
 
-        
+        [Authorize(AuthenticationSchemes = "Ecommerce")]
         [HttpPost("{orderId}")]
-        public async Task<IActionResult> CreateNewOrder(int orderId , List<OrderRequest> items)
+        public async Task<IActionResult> CreateNewOrder(int orderId, List<OrderRequest> items)
         {
             return await OrdersBusiness.Add(items, orderId) ?
                 Ok() : BadRequest("Create New Order Failed");
         }
 
-        
+        [Authorize(AuthenticationSchemes = "Ecommerce")]
         [HttpPost("confrim/{orderId}")]
         public async Task<IActionResult> ConfirmOrder(int orderId)
         {
@@ -35,7 +34,7 @@ namespace Controllers
                 Ok() : BadRequest("Something went wrong");
         }
 
-        
+        [Authorize(AuthenticationSchemes = "Ecommerce")]
         [HttpPatch]
         public async Task<IActionResult> SyncOrderItemsCount(List<OrderRequest> items)
         {

@@ -1,11 +1,10 @@
-﻿using Data_Layer.Interfaces;
-using DTOs;
+﻿using DTOs;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
 namespace Data_Layer.Data
 {
-    public class TruckData : ITruckData
+    public class TruckData 
     {
         public string ConnectionString { get; }
 

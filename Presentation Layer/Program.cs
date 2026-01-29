@@ -1,8 +1,5 @@
-﻿using Business_Layer.Interfaces;
-using Business_Layer.Business;
-using Data_Layer.Interfaces;
+﻿using Business_Layer.Business;
 using Data_Layer.Data;
-using Bussiness_Layer.Interfaces;
 using Bussiness_Layer.Business;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -27,7 +24,8 @@ builder.Services.AddSingleton<EcommerceOptions>(ecommerceOptions);
 
 
 builder.Services.AddAuthentication(
-    options =>{
+    options =>
+    {
         options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
         options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
     })
@@ -80,30 +78,24 @@ builder.Services.AddAuthentication(
 
 
 
-
-
-
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddScoped<IOrdersBusiness, OrdersBusiness>();
-builder.Services.AddScoped<IStocksBusiness, StocksBusiness>();
-builder.Services.AddScoped<ITruckBusiness, TruckBusiness>();
-builder.Services.AddScoped<IInventoryBusiness, InventoryBusiness>();
-builder.Services.AddScoped<IAccountsBusiness, AccountsBusiness>();
-builder.Services.AddScoped<IAuthorizeBusiness, AuthorizeBusiness>();
+builder.Services.AddScoped<OrdersBusiness>();
+builder.Services.AddScoped<StocksBusiness>();
+builder.Services.AddScoped<TruckBusiness>();
+builder.Services.AddScoped<InventoryBusiness>();
+builder.Services.AddScoped<AccountsBusiness>();
+builder.Services.AddScoped<AuthorizeBusiness>();
 
-builder.Services.AddScoped<IOrdersData, OrdersData>();
-builder.Services.AddScoped<IStocksData, StocksData>();
-builder.Services.AddScoped<ITruckData, TruckData>();
-builder.Services.AddScoped<IInventoryData, InventoryData>();
-builder.Services.AddScoped<IAccountsData, AccountsData>();
-builder.Services.AddScoped<IAuthorizeData, AuthorizeData>();
+builder.Services.AddScoped<OrdersData>();
+builder.Services.AddScoped<StocksData>();
+builder.Services.AddScoped<TruckData>();
+builder.Services.AddScoped<InventoryData>();
+builder.Services.AddScoped<AccountsData>();
+builder.Services.AddScoped<AuthorizeData>();
 
 builder.Services.AddScoped<AuthenticateHelper>();
 builder.Services.AddScoped<AuthorizeHelper>();
-
-
-
 
 
 var app = builder.Build();
@@ -113,7 +105,7 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

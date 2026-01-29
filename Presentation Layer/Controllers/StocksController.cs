@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Business_Layer.Interfaces;
 using DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Enums;
 using Presentation_Layer.Authorization;
+using Business_Layer.Business;
 
 namespace Controllers
 {
@@ -12,9 +12,9 @@ namespace Controllers
     public class StocksController : ControllerBase
     {
 
-        public IStocksBusiness StocksBusiness { get; }
+        public StocksBusiness StocksBusiness { get; }
 
-        public StocksController(IStocksBusiness stocksBusiness)
+        public StocksController(StocksBusiness stocksBusiness)
         {
             StocksBusiness = stocksBusiness;
         }
